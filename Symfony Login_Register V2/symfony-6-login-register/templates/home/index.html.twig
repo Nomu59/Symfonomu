@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="jumbotron">
+        <h1>Bienvenue sur la page d'accueil !</h1>
+        <p>Voici la liste des liens permettant de naviguer sur notre site:</p>
+        <ul>
+            <li>Se connecter <code><a href="/login">Login</a></code></li>
+            <li>S'inscrire <code><a href="/register">Register</a></code></li>
+            <li>Profil <code><a href="/dashboard">Dashboard</a></code></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
