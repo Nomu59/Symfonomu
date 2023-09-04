@@ -4,37 +4,41 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Les utilisateurs</h1>
+        {% if not users.items is same as([]) %}
+            <h1>Les utilisateurs</h1>
 
-        <div class="count mt-4">
-            <h4>Il y a 
-                {{ users.getTotalItemCount }} 
-                utilisateurs enregistrés au total
-            </h4>
-        </div>
+            <div class="count mt-4">
+                <h4>Il y a 
+                    {{ users.getTotalItemCount }} 
+                    utilisateurs enregistrés au total
+                </h4>
+            </div>
 
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Numéro</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Mot de passe</th>
-                    <th scope="col">Date de création</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in users %}         
-                    <tr class="table-primary">
-                        <th scope="row">{{ user.id }}</th>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.password }}</td>
-                        <td>{{ user.createdAt|date('d/m/Y') }}</td>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Numéro</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Mot de passe</th>
+                        <th scope="col">Date de création</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <div class="navigation d-flex justify-content-center mt-4">
-            {{ knp_pagination_render(users) }}
-        </div>
+                </thead>
+                <tbody>
+                    {% for user in users %}         
+                        <tr class="table-primary">
+                            <th scope="row">{{ user.id }}</th>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.password }}</td>
+                            <td>{{ user.createdAt|date('d/m/Y') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation d-flex justify-content-center mt-4">
+                {{ knp_pagination_render(users) }}
+            </div>
+            {% else %}
+                <h4>Il n'y a pas d'utilisateurs</h4>
+            {% endif %}
     </div>
 {% endblock %}
