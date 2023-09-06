@@ -7,6 +7,13 @@
         {% if not users.items is same as([]) %}
             <h1>Les utilisateurs</h1>
 
+            {# read and display just one flash message type #}
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success mt-4">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
             <div class="count mt-4">
                 <h4>Il y a 
                     {{ users.getTotalItemCount }} 
