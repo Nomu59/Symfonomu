@@ -23,7 +23,11 @@ class IngredientController extends AbstractController
      * @return Response
      */
     #[Route('/ingredient', name: 'ingredient.index', methods: ['GET'])]
-    public function index(IngredientRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    public function index(
+        IngredientRepository $repository,
+        PaginatorInterface $paginator,
+        Request $request
+        ): Response
     {
         $ingredients = $paginator->paginate(
             $repository->findAll(),
@@ -70,6 +74,14 @@ class IngredientController extends AbstractController
         ]);
     }
 
+    /**
+     * This controller allow us to edit an ingredient
+     * 
+     * @param IngredientRepository $repository
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
     #[Route('ingredient/edition/{id}', 'ingredient.edit', methods: ['GET', 'POST'])]
     public function edit(
         IngredientRepository $repository,
@@ -100,19 +112,22 @@ class IngredientController extends AbstractController
         ]);
     }
 
-    #[Route('ingredient/suppression/{id}', 'ingredient.delete', methods: ['POST'])]
-    public function delete(IngredientRepository $repository, EntityManagerInterface $manager, int $id): Response
+    /**
+     * This controller allow us to delete an ingredient
+     * 
+     * @param IngredientRepository $repository
+     * @param EntityManagerInterface $ manager
+     * @return Response
+     */
+    #[Route('ingredient/suppression/{id}', 'ingredient.delete', methods: ['GET'])]
+    public function delete(
+        IngredientRepository $repository,
+        EntityManagerInterface $manager,
+        int $id
+        ): Response
     {
         $ingredient = $repository->findOneBy(["id" => $id]);
-
-        if(!$ingredient) {
-            $this->addFlash(
-                'success',
-                'L\'ingrédient en questionn\'a pas été trouvé !'
-            );
-
-            return $this->redirectToRoute('ingredient.index');
-        }
+        
         $manager->remove($ingredient);
         $manager->flush();
 

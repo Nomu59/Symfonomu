@@ -28,6 +28,8 @@
                         <th scope="col">Email</th>
                         <th scope="col">Mot de passe</th>
                         <th scope="col">Date de création</th>
+                        <th scope="col">Edition</th>
+                        <th scope="col">Suppression</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +39,12 @@
                             <td>{{ user.email }}</td>
                             <td>{{ user.password }}</td>
                             <td>{{ user.createdAt|date('d/m/Y') }}</td>
+                            <td>
+                                <a href="{{ path('dashboard.edit', { id: user.id }) }}" class="btn btn-info">Modifier</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('dashboard.delete', { id: user.id }) }}" class="btn btn-danger">Supprimer</a>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>

@@ -48,7 +48,7 @@ class DashboardController extends AbstractController
             $manager->flush();
             $this->addFlash(
                 'success',
-                'Votre ingrédient a été modifié avec succès !'
+                'L\'utilisateur a été modifié avec succès !'
             );
 
             return $this->redirectToRoute('dashboard');
@@ -59,19 +59,15 @@ class DashboardController extends AbstractController
         ]);
     }
 
-    #[Route('dashboard/suppression/{id}', 'dashboard.delete', methods: ['POST'])]
-    public function delete(UserRepository $repository, EntityManagerInterface $manager, int $id): Response
+    #[Route('dashboard/suppression/{id}', 'dashboard.delete', methods: ['GET'])]
+    public function delete(
+        UserRepository $repository,
+        EntityManagerInterface $manager,
+        int $id
+        ): Response
     {
         $user = $repository->findOneBy(["id" => $id]);
 
-        if(!$user) {
-            $this->addFlash(
-                'success',
-                'L\'utilisateur en questionn\'a pas été trouvé !'
-            );
-
-            return $this->redirectToRoute('dashboard');
-        }
         $manager->remove($user);
         $manager->flush();
 
